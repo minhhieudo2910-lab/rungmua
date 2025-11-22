@@ -1,1 +1,456 @@
-Hello world
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Một hành trình yên bình</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg-dark: #0b3d2e;      /* xanh rừng sâu */
+            --bg-card: #123f32;      /* xanh lá đậm hơn một chút */
+            --bg-soft: #102820;      /* nền rất đậm */
+            --accent: #4ade80;       /* điểm nhấn xanh non */
+            --text-main: #f9fafb;    /* trắng ngà */
+            --text-sub: #cbd5e1;     /* xám nhạt */
+            --border-soft: #1f4636;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #14532d 0, #020817 60%, #020617 100%);
+            color: var(--text-main);
+        }
+
+        /* NAV */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(4, 24, 16, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .nav {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-title {
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            font-size: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            font-size: 13px;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(15, 118, 110, 0.25);
+        }
+
+        main {
+            max-width: 960px;
+            margin: 20px auto 40px;
+            padding: 0 16px 16px;
+        }
+
+        /* HERO */
+        .hero {
+            margin-top: 8px;
+            padding: 22px 18px 20px;
+            border-radius: 18px;
+            background: linear-gradient(
+                135deg,
+                rgba(15, 118, 110, 0.25),
+                rgba(6, 59, 46, 0.9)
+            );
+            border: 1px solid var(--border-soft);
+            display: grid;
+            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .hero-title {
+            font-size: 26px;
+            margin: 0 0 8px;
+        }
+
+        .hero-sub {
+            margin: 0;
+            color: var(--text-sub);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .hero-tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            color: var(--text-sub);
+        }
+
+        .hero-actions {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            font-size: 13px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            border: none;
+            background: var(--accent);
+            color: #064e3b;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--text-sub);
+            background: transparent;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .hero-image {
+            border-radius: 16px;
+            background-image:
+                linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(4,7,17,0.9) 85%),
+                url("https://images.pexels.com/photos/167684/pexels-photo-167684.jpeg?auto=compress&cs=tinysrgb&w=1200");
+            background-size: cover;
+            background-position: center;
+            min-height: 180px;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px 12px;
+        }
+
+        .hero-image-note {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        /* SECTION GENERIC */
+        section {
+            margin-top: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+        }
+
+        .grid-2 {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (max-width: 720px) {
+            .grid-2 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .card {
+            border-radius: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            padding: 12px 12px 10px;
+        }
+
+        .card h3 {
+            margin: 0 0 6px;
+            font-size: 14px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .pill-row {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .pill {
+            font-size: 11px;
+            padding: 3px 7px;
+            border-radius: 999px;
+            background: rgba(15, 118, 110, 0.3);
+            color: var(--text-main);
+        }
+
+        .small-note {
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-sub);
+            padding: 20px 0 28px;
+        }
+
+        a {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="nav">
+        <div class="nav-title">Một hành trình yên bình</div>
+        <nav class="nav-links">
+            <a href="#learning">Học & làm</a>
+            <a href="#creative">Sáng tạo</a>
+            <a href="#reflections">Chiêm nghiệm</a>
+            <a href="#projects">Thành quả nhỏ</a>
+            <a href="#diary">Nhật ký</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <h1 class="hero-title">Góc nhỏ của tôi giữa “rừng” cuộc sống</h1>
+            <p class="hero-sub">
+                Đây không phải blog dạy đời, cũng không phải CV hoành tráng.
+                Chỉ là nơi tôi ghi lại những gì mình đang học, đang làm, đang thấy đẹp
+                – để nhắc mình rằng mình vẫn đang đi tiếp, dù chậm.
+            </p>
+            <div class="hero-tags">
+                <span class="tag">AI & lập trình</span>
+                <span class="tag">kỹ sư văn phòng</span>
+                <span class="tag">tập trung & bình yên</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#diary" class="btn-primary">Xem nhật ký nỗ lực</a>
+                <a href="#projects" class="btn-ghost">Thành quả nhỏ & webapp</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-image-note">
+                Một góc rừng ảo, nhắc tôi rằng:  
+                cần yên tĩnh bên trong thì mới đi xa bên ngoài được.
+            </div>
+        </div>
+    </section>
+
+    <!-- HỌC & LÀM -->
+    <section id="learning">
+        <h2 class="section-title">Học & làm – AI, lập trình, công việc kỹ sư</h2>
+        <p class="section-sub">
+            Những bài viết, ghi chú ngắn về cách tôi tự học Python, C#, JavaScript, AI
+            và áp dụng chúng vào công việc kỹ sư văn phòng: tự động hóa Word/Excel,
+            xử lý số liệu địa kỹ thuật, và xây vài công cụ nhỏ cho chính mình.
+        </p>
+        <div class="grid-2">
+            <article class="card">
+                <h3>AI & tự động hóa cho kỹ sư văn phòng</h3>
+                <p>
+                    Ghi lại cách tôi dùng AI để đọc nhật ký thí nghiệm, xử lý dữ liệu,
+                    viết mô tả kỹ thuật, và giảm bớt những việc lặp lại khiến mình kiệt sức.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">Python</span>
+                    <span class="pill">Excel/Word</span>
+                    <span class="pill">tự động hóa</span>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Các ghi chú lập trình rời rạc</h3>
+                <p>
+                    Những mảnh nhỏ về C#, web, app, những thứ tôi học được trên đường.
+                    Không giáo trình, không bài bản – chỉ là “tôi đã làm, và rút kinh nghiệm”.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">C# & .NET</span>
+                    <span class="pill">webapp</span>
+                    <span class="pill">ghi chú kỹ thuật</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- SÁNG TẠO -->
+    <section id="creative">
+        <h2 class="section-title">Sáng tạo – Vẽ, piano, ngoại ngữ</h2>
+        <p class="section-sub">
+            Những “đường nét” nhỏ giúp cuộc sống bớt khô khan:
+            vài phác thảo, vài đoạn nhạc vụng về, vài câu tiếng nước ngoài tôi nhặt được.
+        </p>
+        <div class="grid-2">
+            <article class="card">
+                <h3>Những nét vẽ vụng về nhưng thật</h3>
+                <p>
+                    Tôi không phải họa sĩ, chỉ là người tập vẽ để nhìn thế giới chậm lại.
+                    Mỗi bức vẽ là một lần ngồi yên cùng chính mình.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">sketch</span>
+                    <span class="pill">màu xanh</span>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Piano & ngoại ngữ – học cho vui</h3>
+                <p>
+                    Những đoạn nhạc ngắn, những câu thoại hay, những từ tôi thấy đẹp.
+                    Không thi cử, chỉ là cho tâm mình có thêm “ngôn ngữ” để thở.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">piano</span>
+                    <span class="pill">ngôn ngữ</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- CHIÊM NGHIỆM -->
+    <section id="reflections">
+        <h2 class="section-title">Những điều đẹp đẽ & chiêm nghiệm nhỏ</h2>
+        <p class="section-sub">
+            Những mẩu chuyện vụn vặt, những thứ tôi lượm lặt được về thế giới,
+            về con người, về chính mình – khiến tôi bớt khắt khe với bản thân
+            và thấy cuộc sống dịu đi một chút.
+        </p>
+        <article class="card">
+            <h3>Những mảnh nhỏ để nhắc mình “cuộc sống vẫn đẹp”</h3>
+            <p>
+                Có thể chỉ là một câu nói ở đâu đó, một buổi chiều đẹp,
+                hay một khoảnh khắc mình không còn trách mình nữa.
+                Tôi gom chúng lại ở đây, như cất vào một chiếc hộp nhỏ.
+            </p>
+        </article>
+    </section>
+
+    <!-- DỰ ÁN / THÀNH QUẢ NHỎ -->
+    <section id="projects">
+        <h2 class="section-title">Thành quả nhỏ & webapp tôi đang làm</h2>
+        <p class="section-sub">
+            Những ứng dụng nhỏ, tiện ích đơn giản tôi viết cho mình và cho người khác.
+            Chúng chưa chắc đã hoàn hảo, nhưng là những bước chân thật trên hành trình học.
+        </p>
+        <div class="grid-2">
+            <article class="card">
+                <h3>Pomodoro tập trung & trị liệu nhẹ</h3>
+                <p>
+                    Một ứng dụng Pomodoro tối giản, lấy cảm hứng từ rừng mưa,
+                    kết hợp nhắc nhở nhẹ nhàng và không gian yên tĩnh để làm việc sâu.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">tập trung</span>
+                    <span class="pill">pomodoro</span>
+                </div>
+                <p class="small-note">
+                    (Sau này sẽ có link webapp ở đây.)
+                </p>
+            </article>
+            <article class="card">
+                <h3>Webapp hỗ trợ công việc kỹ sư</h3>
+                <p>
+                    Các công cụ nhỏ để xử lý nhật ký, dữ liệu thí nghiệm, báo cáo…
+                    Thay vì giữ riêng, tôi muốn chia sẻ một phần lên đây khi sẵn sàng.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">OCR</span>
+                    <span class="pill">Excel/Word</span>
+                    <span class="pill">kỹ thuật</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- NHẬT KÝ -->
+    <section id="diary">
+        <h2 class="section-title">Nhật ký nỗ lực</h2>
+        <p class="section-sub">
+            Một góc nhỏ để ghi lại: hôm nay tôi đã cố gắng điều gì, có thành quả nhỏ nào,
+            và tôi nhận ra điều gì về bản thân. Không cần hay, chỉ cần thật.
+        </p>
+        <article class="card">
+            <h3>Ví dụ một ngày</h3>
+            <p class="small-note">
+                Sau này, khi bạn có nhiều bài, ta có thể tách thành trang riêng
+                hoặc chuyển sang dạng dữ liệu để vẽ biểu đồ, cho AI phân tích.
+            </p>
+        </article>
+    </section>
+</main>
+
+<footer>
+    &copy; <span id="year"></span> – Một hành trình yên bình giữa rừng đời.
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
